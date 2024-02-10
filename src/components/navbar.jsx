@@ -18,8 +18,19 @@ import { FaGamepad } from "react-icons/fa6";
 import { FaTshirt } from "react-icons/fa";
 import { GiEagleHead } from "react-icons/gi";
 import { IoMdPricetag } from "react-icons/io";
+import { HiSpeakerphone } from "react-icons/hi";
+import { FaCalendarAlt } from "react-icons/fa";
+import { PiGameControllerFill } from "react-icons/pi";
+import { MdCompareArrows } from "react-icons/md";
+import { GrServices } from "react-icons/gr";
+import { BiSolidUniversalAccess } from "react-icons/bi";
+import { GrSystem } from "react-icons/gr";
+import { HiOutlineEmojiHappy } from "react-icons/hi";
+import { BsFillEmojiSmileFill } from "react-icons/bs";
 // images and svgs
 import Logo from "../assets/logo.svg?react";
+import Navicon from "../assets/iconnav.svg?react";
+import Navicon2 from "../assets/iconnav2.svg?react";
 
 const Navbar = () => {
   const categoriesDropdownIcon = useRef(null);
@@ -153,9 +164,6 @@ const Navbar = () => {
     },
   ];
 
-  const subMenuDropContents = [];
-  const [subMenuDropContent, setSubMenuDropContent] = useState();
-
   const [nintendoItems, setNintendoItems] = useState(subNav);
   const [isNintendo, setNintendo] = useState(true);
   const subMenuDrop = useRef(null);
@@ -240,6 +248,73 @@ const Navbar = () => {
     {
       name: "Sales & Deals",
       icon: <IoMdPricetag />,
+    },
+  ];
+
+  const gamesDropItems = [
+    {
+      name: "Nintendo Switch games",
+      icon: <BsNintendoSwitch />,
+    },
+    {
+      name: "New Releases",
+      icon: <HiSpeakerphone />,
+    },
+    {
+      name: "Coming Soon",
+      icon: <FaCalendarAlt />,
+    },
+    {
+      name: "Shop games",
+      icon: <FaGamepad />,
+    },
+  ];
+
+  const nintendoSwitchDropItems = [
+    {
+      name: "Nintendo Switch lineup",
+      icon: <PiGameControllerFill />,
+    },
+    {
+      name: "Compare systems",
+      icon: <MdCompareArrows />,
+    },
+    {
+      name: "Online services",
+      icon: <GrServices />,
+    },
+    {
+      name: "Accessories",
+      icon: <BiSolidUniversalAccess />,
+    },
+    {
+      name: "Shop Systems",
+      icon: <GrSystem />,
+    },
+  ];
+
+  const playNintendoDropItems = [
+    {
+      name: "For Kids",
+      icon: (
+        <div className="flex">
+          <HiOutlineEmojiHappy />
+          <HiOutlineEmojiHappy />
+        </div>
+      ),
+    },
+    {
+      name: "For Parents",
+      icon: (
+        <div className="flex items-center">
+          <span>
+            <BsFillEmojiSmileFill />
+          </span>
+          <span className="text-4xl">
+            <HiOutlineEmojiHappy />
+          </span>
+        </div>
+      ),
     },
   ];
 
@@ -350,40 +425,114 @@ const Navbar = () => {
                 ref={subMenuDrop}
                 className={
                   isNintendo
-                    ? "h-0 absolute top-12 w-full  bg-black transition-all ease-linear"
-                    : "absolute transition-all  ease-linear h-44 text-white bg-black w-full top-12"
+                    ? "h-0 absolute top-12 w-full  bg-theme-white transition-all ease-linear"
+                    : "absolute group transition-all duration-75  ease-linear h-72 text-theme-black bg-theme-white shadow-sm w-full top-12"
                 }
               >
                 {item.active && i === 0 && (
                   <div className="absolute z-10 w-full">
                     <div className="py-4 bg-theme-red flex w-full justify-center after:bg-NavPattern after:absolute after:top-14 after:h-6 after:bg-repeat-x after:mt-1 after:w-full">
-                      <Link className="flex max-w-max font-bold gap-2 text-lg items-center">
+                      <Link className="flex max-w-max text-white font-bold gap-2 text-lg items-center">
                         <BsNintendoSwitch />
                         My Nintendo Store
                       </Link>
                     </div>
 
-                    <div>
-                      <div></div>
-                      <div></div>
-                      <div></div>
-                      <div></div>
-                      <div></div>
+                    <div className="grid grid-cols-6 max-w-6xl pt-8 pb-5 mx-auto justify-items-center">
+                      {nintendoStoreDrop.map((item, i) => (
+                        <div className="flex flex-col" key={i}>
+                          <Link className="flex gap-2 text-md items-center pb-3 font-bold hover:text-theme-red transition-all">
+                            <span className="text-theme-red">{item.icon}</span>
+                            {item.name}
+                          </Link>
+                          <div className="flex flex-col text-sm gap-1 whitespace-nowrap">
+                            {Array.isArray(item.items) &&
+                              item.items.map((r) => <span>{r}</span>)}
+                          </div>
+                        </div>
+                      ))}
                     </div>
+                    <button className="mx-auto w-full ">
+                      <Link className="px-6 py-3 rounded-lg font-bold text-theme-red border-theme-red border inline-block  transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:bg-opacity-15 hover:bg-theme-red  duration-300  ">
+                        Shop All
+                      </Link>
+                    </button>
                   </div>
                 )}
                 {item.active && i === 1 && (
-                  <div className="absolute z-10">Hello Games</div>
+                  <div className="absolute z-10 flex gap-8 w-full justify-center pt-20">
+                    {gamesDropItems.map((item, i) => (
+                      <div
+                        key={i}
+                        className="text-xl text-center flex flex-col   hover:text-theme-red cursor-pointer items-center  "
+                      >
+                        <span className="text-6xl group hover:bg-theme-red hover:text-theme-white border px-6 py-3">
+                          {item.icon}
+                        </span>
+                        <span className="max-w-32 text-sm inline-block">
+                          {item.name}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
                 )}
                 {item.active && i === 2 && (
-                  <div className="absolute z-10">Hello Nintendo Switch</div>
+                  <div className="absolute z-10 flex gap-8 w-full justify-center pt-20">
+                    {nintendoSwitchDropItems.map((item, i) => (
+                      <div
+                        key={i}
+                        className="text-xl text-center flex flex-col   hover:text-theme-red cursor-pointer items-center  "
+                      >
+                        <span className="text-6xl group hover:bg-theme-red hover:text-theme-white border px-6 py-3">
+                          {item.icon}
+                        </span>
+                        <span className="max-w-32 text-sm inline-block">
+                          {item.name}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
                 )}
                 {item.active && i === 4 && (
-                  <div className="absolute z-10">Hello Play</div>
+                  <div className="absolute z-10 flex gap-8 w-full justify-center pt-20">
+                    {playNintendoDropItems.map((item, i) => (
+                      <div
+                        key={i}
+                        className="text-xl text-center flex flex-col   hover:text-theme-red cursor-pointer items-center  "
+                      >
+                        <span className="text-6xl group hover:bg-theme-red hover:text-theme-white border px-6 py-3">
+                          {item.icon}
+                        </span>
+                        <span className="max-w-32 text-sm inline-block">
+                          {item.name}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
                 )}
               </div>
             )
         )}
+      </div>
+      <div className="bg-theme-light-white flex py-5 items-center justify-center">
+        <div className="flex gap-2 items-center pr-3 border-r-black border-r">
+          <span className="text-theme-red">
+            <Navicon />
+          </span>
+          <p>
+            <span className="font-bold">Free shipping</span> on orders $50 or
+            more. <span className="underline">Restrictions apply.</span>
+          </p>
+        </div>
+        <div className="pl-3 flex gap-2 items-center">
+          <span className="text-theme-red">
+            <Navicon2 />
+          </span>
+          <p>
+            Earn <span className="font-bold underline">My Nintendo Points</span>{" "}
+            on digital games
+          </p>
+        </div>
       </div>
     </nav>
   );
