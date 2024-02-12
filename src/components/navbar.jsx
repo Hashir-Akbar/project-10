@@ -32,6 +32,9 @@ import Logo from "../assets/logo.svg?react";
 import Navicon from "../assets/iconnav.svg?react";
 import Navicon2 from "../assets/iconnav2.svg?react";
 
+// components
+import Button from "./button";
+
 const Navbar = () => {
   const categoriesDropdownIcon = useRef(null);
 
@@ -452,11 +455,12 @@ const Navbar = () => {
                         </div>
                       ))}
                     </div>
-                    <button className="mx-auto w-full ">
-                      <Link className="px-6 py-3 rounded-lg font-bold text-theme-red border-theme-red border inline-block  transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:bg-opacity-15 hover:bg-theme-red  duration-300  ">
-                        Shop All
-                      </Link>
-                    </button>
+                    <Button
+                      btnValue="Shop All"
+                      width="w-full mx-auto"
+                      backAniCss="px-12 py-6 border border-theme-red rounded-lg"
+                      textColor="text-theme-red"
+                    />
                   </div>
                 )}
                 {item.active && i === 1 && (
