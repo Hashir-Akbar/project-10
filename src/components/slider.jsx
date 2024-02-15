@@ -2,7 +2,13 @@ import React, { useState, useRef } from "react";
 
 // images
 import img1 from "../assets/hero.png";
-import { useEffect } from "react";
+// Import Swiper React components
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination } from "swiper/modules";
+
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/navigation";
 
 function Slider() {
   const sliderItems = [
@@ -33,38 +39,28 @@ function Slider() {
   ];
   const [item, setItem] = useState(sliderItems);
 
-  const imgDiv = useRef(null);
-  let imgChilds;
-  useEffect(() => {
-    imgChilds = imgDiv.current.children[0].width;
-  }, []);
-
-  function nextClick() {
-    let slider = imgDiv.current;
-
-    slider.scroll({
-      left: 100,
-      behavior: "smooth",
-    });
-  }
-
   return (
     <div>
-      <div className="display"></div>
-      <div
-        ref={imgDiv}
-        className="sliderItems  border-red-700 border flex  max-w-xl overflow-x-scroll gap-5 "
+      <Swiper
+        slidesPerView={3}
+        spaceBetween={30}
+        pagination={{
+          clickable: true,
+        }}
+        navigation={true}
+        modules={[Pagination, Navigation]}
+        className="mySwiper"
       >
-        {item.map((item, index) => {
-          return <img src={item.item} alt="" key={index} />;
-        })}
-      </div>
-      <div className="flex gap-4">
-        <button onClick={nextClick} className="border border-purple-700">
-          Next
-        </button>
-        <button className="border border-purple-700">Prev</button>
-      </div>
+        <SwiperSlide>Slide 1</SwiperSlide>
+        <SwiperSlide>Slide 2</SwiperSlide>
+        <SwiperSlide>Slide 3</SwiperSlide>
+        <SwiperSlide>Slide 4</SwiperSlide>
+        <SwiperSlide>Slide 5</SwiperSlide>
+        <SwiperSlide>Slide 6</SwiperSlide>
+        <SwiperSlide>Slide 7</SwiperSlide>
+        <SwiperSlide>Slide 8</SwiperSlide>
+        <SwiperSlide>Slide 9</SwiperSlide>
+      </Swiper>
     </div>
   );
 }
