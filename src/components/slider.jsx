@@ -1,3 +1,4 @@
+// eslint-disable-next-line
 import React, { useState, useRef } from "react";
 
 // images
@@ -43,10 +44,25 @@ function Slider() {
     },
   ];
 
+  let [sliderItemsLength , setSliderItemsLength] = useState(0)
   const nextClick = () => {
-    sliderItems.length - 1;
+    if (sliderItemsLength < 7) {
+      setCurrentSlide((c) => (c += 1));
+      setSliderItemsLength((s) => s+1)
+    }else if (sliderItemsLength >= 7) {
+      setSliderItemsLength(0)
+      setCurrentSlide(0)
+    }
+  };
 
-    setCurrentSlide((c) => (c += 1));
+  const prevClick = () => {
+    if (sliderItemsLength > 0) {
+      setCurrentSlide((c) => (c -= 1));
+      setSliderItemsLength((s) => s - 1);
+    } else if (sliderItemsLength <= 0) {
+      setSliderItemsLength(7);
+      setCurrentSlide(7);
+    }
   };
 
   return (
@@ -57,12 +73,14 @@ function Slider() {
             <img
               key={i}
               src={img.active ? img.item : ""}
-              className="object-cover h-auto "
+              className="object-cover h-auto"
             />
           ))}
           <div className="button flex opacity-0 group-hover:opacity-100 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 justify-between w-full">
-            <button className="bg-blue-950 rounded-sm py-4 px-2">
+            <button className="bg-blue-950 rounded-sm py-4 px-2"
+                    onClick={prevClick}>
               <GrPrevious
+
                 size={30}
                 color="white"
                 strokeWidth={4}
